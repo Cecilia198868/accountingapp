@@ -8,6 +8,11 @@ const app = express();
 
 app.use(express.json()); // 使express支持JSON格式的输入
 
+const ordersRouter = require("./routes/orders");
+
+// 使用你的订单路由器，并指定路径前缀
+app.use("/orders", ordersRouter);
+
 // 连接数据库
 mongoose
 	.connect(process.env.MONGODB_URI)
