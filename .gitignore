@@ -1,0 +1,15 @@
+# 依赖目录
+node_modules/
+
+# 环境变量配置文件
+.env
+
+# 生产日志文件
+*.log
+
+# MacOS 系统文件
+.DS_Store
+
+# 编辑器目录
+.vscode/
+.idea/
