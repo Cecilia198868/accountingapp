@@ -6,6 +6,9 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 // 从其他文件（./routes/orders.js）导入了 ordersRouter 模块。通常，此模块包含与订单相关的特定路由（URL路径），例如创建或获取订单。
 import ordersRouter from "./routes/orders.js";
+import someRoute from "./routes/someRoute"; // 修正了路径字符串
+// 如果 db.js 使用 mongoose，就不需要再次导入 mongoose 和单独连接 MongoDB
+// import db from "./db"
 // 激活 dotenv 库的配置，这将读取 .env 文件的内容并将其合并到环境变量（process.env）中。
 dotenv.config();
 // 初始化一个新的 Express 应用程序。这个 app 对象被用来配置服务器，设置路由、中间件等。
@@ -15,6 +18,12 @@ app.use(express.json()); // 使express支持JSON格式的输入
 // 这行代码将 /orders 路径与 ordersRouter 路由处理程序相关联。这意味着任何以 /orders 开头的 URL 都将由 ordersRouter 中定义的路由来处理。
 // 使用你的订单路由器，并指定路径前缀
 app.use("/orders", ordersRouter);
+// 路由
+app.use("/api/someRoute", someRoute);
+
+// 如果 db.js 中包含了连接数据库的逻辑，这里就不需要再次连接
+// 你应该只保留下面的 db.connect 或者 mongoose.connect 中的一个
+// db.connect();
 
 // 连接数据库
 // 这段代码尝试连接到由环境变量 MONGODB_URI 指定的 MongoDB 数据库。连接成功时会输出“MongoDB connected”，失败时会捕获并打印错误。
