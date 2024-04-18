@@ -5,7 +5,8 @@ import mongoose from "mongoose";
 // 导入 dotenv 库，它从 .env 文件中加载环境变量到 process.env。这有助于安全地管理私有设置（如数据库密码）。
 import dotenv from "dotenv";
 // 从其他文件（./routes/orders.js）导入了 ordersRouter 模块。通常，此模块包含与订单相关的特定路由（URL路径），例如创建或获取订单。
-import ordersRouter from "./routes/orders.js";
+import orderRoutes from "./routes/orders.js";
+
 import someRoute from "./routes/someRoute"; // 修正了路径字符串
 // 如果 db.js 使用 mongoose，就不需要再次导入 mongoose 和单独连接 MongoDB
 // import db from "./db"
@@ -17,7 +18,8 @@ const app = express();
 app.use(express.json()); // 使express支持JSON格式的输入
 // 这行代码将 /orders 路径与 ordersRouter 路由处理程序相关联。这意味着任何以 /orders 开头的 URL 都将由 ordersRouter 中定义的路由来处理。
 // 使用你的订单路由器，并指定路径前缀
-app.use("/orders", ordersRouter);
+app.use("/orders", orderRoutes);
+
 // 路由
 app.use("/api/someRoute", someRoute);
 
