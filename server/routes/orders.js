@@ -1,10 +1,8 @@
 import express from "express";
+import OrderController from "../controllers/OrderController";
 
-const ordersRouter = express.Router();
+const router = express.Router();
 
-// 路由逻辑
-ordersRouter.post("/", (req, res) => {
-	// 处理创建订单的逻辑...
-});
+router.post("/create", OrderController.createOrder);
 
-export default ordersRouter;
+module.exports = router;
