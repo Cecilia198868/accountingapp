@@ -1,5 +1,5 @@
 import drizzle from "../db";
-
+// entity实体;drizzle细雨
 const { entity, field } = drizzle.orm;
 
 export const User = entity("User", {
