@@ -1,6 +1,7 @@
 import { entity, field } from "drizzle-orm";
+import mongoose from "mongoose";
 
-const Order = entity("Order", {
+export const Order = entity("Order", {
 	id: field.number().primary().autoIncrement(),
 	// 其他订单相关的字段，比如：
 	userId: field.number(),
@@ -10,4 +11,10 @@ const Order = entity("Order", {
 	// 根据实际需求添加更多字段
 });
 
-module.exports = Order;
+export const orderSchema = new mongoose.Schema({
+	// Define the order schema
+	customerName: String,
+	orderDate: Date,
+	status: String,
+	// other fields...
+});
