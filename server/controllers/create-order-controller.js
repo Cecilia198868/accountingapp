@@ -1,12 +1,15 @@
-export async function createOrderController(req, res) {
-	try {
-		// 从请求体中获取订单数据
-		const orderData = req.body;
+const orders = [];
 
-		// 创建成功，返回201状态码和新创建的订单
-		res.status(200).json(newOrder);
+export async function createOrderController(orderData) {
+	try {
+		if (!orderData || !orderData.items || orderData.items.length === 0) {
+			throw new Error("Invalid order data");
+		}
+		const newOrderId = orders.length + 1;
+		const newOrder = { id: newOrderId, ...orderData };
+		orders.push(newOrder);
+		return newOrder;
 	} catch (error) {
-		// 错误处理，返回相应的错误状态码和消息
-		res.status(500).json({ message: error.message });
+		throw new Errow(`Order creation failed: ${error.message}`);
 	}
 }
