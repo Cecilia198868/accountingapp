@@ -10,6 +10,7 @@ export async function createOrderController(orderData) {
 		orders.push(newOrder);
 		return newOrder;
 	} catch (error) {
-		throw new Errow(`Order creation failed: ${error.message}`);
+		throw new Error(`Order creation failed:${error.message}`);
+		// 在${}内部放入你的代码，这段代码的结果会被转换为字符串并包含在整个字符串中。
 	}
 }

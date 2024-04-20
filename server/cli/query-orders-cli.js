@@ -1,9 +1,8 @@
-// queryOrdersCLI.js
-import { listOrders } from "./controllers/list-orders-controller";
+import { listOrders } from "../controllers/list-orders-controller";
 
 function queryOrdersCLI(searchCriteria) {
 	const result = listOrders(searchCriteria);
-	console.log("Query Results:", result);
+	console.log("Query Result", result);
 }
 
 const searchCriteria = {
