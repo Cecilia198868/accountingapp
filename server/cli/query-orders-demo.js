@@ -1,4 +1,4 @@
-import { listOrders } from "../controllers/list-orders-controller";
+import { readOrders } from "../controllers/read-orders-controller";
 
 const searchCriteria = {
 	search: "Alice",
@@ -7,6 +7,6 @@ const searchCriteria = {
 	limit: 5,
 };
 
-constresult = listOrders(searchCriteria);
+constresult = readOrders(searchCriteria);
 
 console.log(result);
