@@ -1,23 +1,23 @@
 export const orders = [];
+const types = {
+	play: true,
+	home: true,
+	work: true,
+};
 export async function createOrderController(req, res) {
-	try {
-		const newOrder = createOrderController(req.body);
-		res.status(200).json(newOrder);
-	} catch (error) {
-		res.status(400).json({ message: error.message });
+	const body = JSON.parse(req.body);
+
+	// title
+	if (!body.title) {
+		throw new Error("Need title");
 	}
-	try {
-		if (!orderData) {
-			throw new Error("invalid order data");
-		}
-		if (!orderData.title) {
-			throw new Error("invalid order title");
-		}
-		const newOrderId = orders.length + 1;
-		const newOrder = { it: newOrderId, ...orderData };
-		orders.push(newOrder);
-		return newOrder;
-	} catch (error) {
-		throw new Error(`Order creation failed:${error.message}`);
+	// type
+	if (!types[body.type]) {
+		throw new Error("Type is not defined");
 	}
+	// desc
+	if (typeof body.desc === "string") {
+		throw new Error("Desc need a string");
+	}
+	res.status(200).json({ success: true });
 }
