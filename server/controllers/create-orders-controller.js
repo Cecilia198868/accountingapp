@@ -19,5 +19,6 @@ export async function createOrderController(req, res) {
 	if (typeof body.desc === "string") {
 		throw new Error("Desc need a string");
 	}
+
 	res.status(200).json({ success: true });
 }
