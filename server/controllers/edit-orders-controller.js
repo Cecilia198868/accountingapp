@@ -1,19 +1,24 @@
-// edit-order.js
-export const orders = [{ id: 1, customerName: "Alice", total: 200 }];
+import { orders } from "./edit-orders-controller";
 
 export function editOrders(req, res) {
-	try {
-		const newOrder = createOrderController(req.body);
-		res.status(200).json(newOrder);
-	} catch (error) {
-		res.status(400).json({ message: error.message });
+	const { orderId, newName, newAssigned } = JSON.parse(req.body);
+	function editOrder(orderId, newName, newAssigned) {
+		const order = orders.find((order) => order.id === orderId);
+		if (!order) {
+			return "Order not found";
+		}
+		if (newName) {
+			order.name = newName.trim();
+		}
+		if (typeof newAssigned === "number") {
+			order.assigned = newAssigned;
+		}
+		return "update successfully";
 	}
-	const orderIndex = orders.findIndex((order) => order.id === id);
-	if (orderIndex === -1) {
-		throw new Error("Order not found");
+	const result = editOrder(orderId, newName, newAssigned);
+	if (result === "Order not found") {
+		res.status(404).json({ success: false, message: result });
+	} else {
+		res.status(200).json({ success: true, message: result });
 	}
-	const order = orders[orderIndex];
-	const updatedOrder = { ...order, ...orderData };
-	orders[orderIndex] = updatedOrder;
-	return updatedOrder;
 }

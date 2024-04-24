@@ -1,8 +1,12 @@
-export const orders = [];
+export const orders = [
+	{ id: 1, Name: "Gas", assigned: 150 },
+	{ id: 2, Name: " Electricity", assigned: 200 },
+	{ id: 3, Name: "Garbage", assigned: 60 },
+];
 const types = {
-	play: true,
-	home: true,
-	work: true,
+	bills: true,
+	needs: true,
+	wants: true,
 };
 export async function createOrderController(req, res) {
 	const body = JSON.parse(req.body);
@@ -16,7 +20,7 @@ export async function createOrderController(req, res) {
 		throw new Error("Type is not defined");
 	}
 	// desc
-	if (typeof body.desc === "string") {
+	if (typeof body.desc !== "string") {
 		throw new Error("Desc need a string");
 	}
 

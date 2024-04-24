@@ -1,17 +1,22 @@
 // delete-order.js
-export const orders = [{ id: 1, customerName: "Alice", total: 200 }];
+import { orders } from "./edit-orders-controller";
 
-export function deleteOrders(id) {
-	try {
-		const newOrder = createOrderController(req.body);
-		res.status(200).json(newOrder);
-	} catch (error) {
-		res.status(400).json({ message: error.message });
+export function deleteOrders(req, res) {
+	const { orderId } = JSON.parse(req.body);
+	function deleteOrder(orderid) {
+		const index = orders.findIndex((order) => order.id === orderid);
+		if (index !== -1) {
+			orders.splice(index, 1);
+			return "Order deleted successfully.";
+			// biome-ignore lint/style/noUselessElse: <explanation>
+		} else {
+			return "Order not found";
+		}
 	}
-	const orderIndex = orders.findIndex((order) => order.id === id);
-	if (orderIndex === -1) {
-		throw new Error("Order not found");
+	const result = deleteOrder(orderId);
+	if (result === "Order deleted successfully.") {
+		res.status(200).json({ success: true, message: result });
+	} else {
+		res.status(404).json({ success: false, message: result });
 	}
-	orders.splice(orderIndex, 1);
-	return { message: "Order deleted successfully" };
 }

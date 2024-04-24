@@ -1,8 +1,4 @@
-export const orders = [
-	{ id: 1, customerName: "Alice", total: 200 },
-	{ id: 2, customerName: "Bob", total: 50 },
-	{ id: 3, customerName: "Alice", total: 150 },
-];
+import { orders } from "./create-orders-controller";
 
 export function readOrdersController(req, res) {
 	const query = req.query;
