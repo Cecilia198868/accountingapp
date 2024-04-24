@@ -1,22 +1,18 @@
 // delete-order.js
-import { orders } from "./edit-orders-controller";
+import { orders } from "./create-orders-controller";
 
 export function deleteOrders(req, res) {
-	const { orderId } = JSON.parse(req.body);
-	function deleteOrder(orderid) {
-		const index = orders.findIndex((order) => order.id === orderid);
-		if (index !== -1) {
-			orders.splice(index, 1);
-			return "Order deleted successfully.";
-			// biome-ignore lint/style/noUselessElse: <explanation>
-		} else {
-			return "Order not found";
-		}
+	const orderId = req.params.id; // 从URL参数获取订单ID
+	const index = orders.findIndex((order) => order.id === orderId); // 找到对应订单的索引
+
+	if (index === -1) {
+		// 如果找不到订单，返回404错误
+		return res.status(404).json({ message: "Order not found" });
 	}
-	const result = deleteOrder(orderId);
-	if (result === "Order deleted successfully.") {
-		res.status(200).json({ success: true, message: result });
-	} else {
-		res.status(404).json({ success: false, message: result });
-	}
+
+	// 从数组中删除订单
+	orders.splice(index, 1);
+
+	// 返回204状态码，表示删除成功但不返回任何内容
+	res.status(204).end();
 }

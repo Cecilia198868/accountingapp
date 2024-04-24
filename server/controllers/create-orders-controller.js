@@ -8,7 +8,7 @@ const types = {
 	needs: true,
 	wants: true,
 };
-export async function createOrderController(req, res) {
+export async function createOrder(req, res) {
 	const body = JSON.parse(req.body);
 
 	// title

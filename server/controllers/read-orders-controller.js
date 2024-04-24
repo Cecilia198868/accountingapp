@@ -1,6 +1,6 @@
 import { orders } from "./create-orders-controller";
 
-export function readOrdersController(req, res) {
+export function readOrders(req, res) {
 	const query = req.query;
 	if (typeof query.limit !== "number" || query.limit > 100) {
 		throw new Error("limit need less 100");
