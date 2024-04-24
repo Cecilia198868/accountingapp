@@ -1,4 +1,4 @@
-import { orders } from "./create-orders-controller";
+import { orders } from "./create-orders-controller.js";
 
 export function readOrders(req, res) {
 	const query = req.query;

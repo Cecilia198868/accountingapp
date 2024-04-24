@@ -9,20 +9,20 @@ const types = {
 	wants: true,
 };
 export async function createOrder(req, res) {
-	const body = JSON.parse(req.body);
-
-	// title
+	const body = req.body;
+	console.log(body);
 	if (!body.title) {
+		// title
 		throw new Error("Need title");
 	}
-	// type
 	if (!types[body.type]) {
+		// type
 		throw new Error("Type is not defined");
 	}
-	// desc
 	if (typeof body.desc !== "string") {
+		// desc
 		throw new Error("Desc need a string");
 	}
-
+	console.log("running create order");
 	res.status(200).json({ success: true });
 }

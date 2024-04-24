@@ -1,4 +1,4 @@
-import { orders } from "./create-orders-controller";
+import { orders } from "./create-orders-controller.js";
 
 export async function readOrder(req, res) {
 	const body = JSON.parse(req.body);
