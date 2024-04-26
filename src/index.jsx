@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Playground from "./pages/playground/playground.js";
-import reportWebVitals from "./reportWebVitals.js";
+import Playground from "./pages/playground/playground.jsx";
+import reportWebVitals from "./reportWebVitals.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
