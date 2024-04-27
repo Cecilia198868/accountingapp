@@ -14,6 +14,7 @@
 	"author": "",
 	"license": "ISC",
 	"description": "",
+	"react-router-dom": "^6.x.x",
 	"dependencies": {
 		"@babel/core": "^7.24.4",
 		"@babel/preset-env": "^7.24.4",
@@ -22,6 +23,7 @@
 		"babel-loader": "^9.1.3",
 		"biome": "^0.3.3",
 		"core-js": "^3.37.0",
+		"cors": "^2.8.5",
 		"css-loader": "^7.1.1",
 		"dotenv": "^16.4.5",
 		"express": "^4.19.2",
@@ -31,6 +33,7 @@
 		"nodemailer": "^6.9.13",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.23.0",
 		"react-scripts": "^5.0.1",
 		"sequelize": "^6.37.3",
 		"sqlite3": "^5.1.7",
@@ -41,12 +44,11 @@
 		"webpack-cli": "^5.1.4",
 		"webpack-dev-server": "^4.15.2"
 	},
+	"devDependencies": {
+		"@babel/plugin-proposal-private-property-in-object": "^版本号"
+	},
 	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
+		"production": [">0.2%", "not dead", "not op_mini all"],
 		"development": [
 			"last 1 chrome version",
 			"last 1 firefox version",

@@ -1,59 +1,131 @@
 /* playground.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* This ensures padding does not affect the overall dimensions of elements */
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: transparent;
+
+}
+
 .homepage {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  align-items:  center;
   justify-content: center;
   height: 100vh; 
-  color: #ffffff; 
-  background-image:url('/Applications/soure/softeditlearning/accountingapp/src/pages/playground/homepage-background.jpg');
+  color: hsl(0, 20%, 1%); 
   font-family: 'Arial', sans-serif; 
-  background-position:center;
-  background-repeat:no-repeat;
-  background-size:cover;
- 
+  padding: 0;
 }
 
-@media (max-width: 768px) {
-  #companyLogo {
-    height: 50px; /* 在较小的屏幕上减小logo尺寸 */
-  }
+.h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem; 
+
 }
 
-.header h1 {
-  font-size: 100px;
-  margin-bottom: 10px; 
-  text-align: center;
+.h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem; 
+  padding-top: 40px;
+
 }
 
-.header p {
-  font-size: 80px;
-  margin-bottom: 30px; 
-  text-align: center;
+.p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem; 
+  padding-top: 40px;
 }
 
 .start-button {
-  padding: 30px 90px; /* 内填充 */
+  padding: 1.5rem 3rem; /* 内填充 */
   border: 1px solid #000000c3;
-  border-radius: 20px; /* 圆角边框 */
+  border-radius: 30px; /* 圆角边框 */
   background-image: linear-gradient(to right, hsl(201, 100%, 50%), hsl(83, 87%, 50%)); /* 渐变背景 */
   color: #ffffff; /* 文字颜色 */
-  font-size: 2rem; /* 字体大小 */
+  font-size: 1.5rem; /* 字体大小 */
   font-weight: bold;
   cursor: pointer; /* 鼠标光标 */
-  transition: background-color 0.3s; /* 过渡效果 */
+  transition: all 0.3s ease; /* 过渡效果 */
   display: block;
-  margin-top: 20px;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  box-shadow: 0px 15px 30px #0000004c;
-  cursor: pointer;
+  margin-top: 80px;
+  margin-bottom: 20px;
+  box-shadow:0px 4px 8px #000000c3
 
 }
 
 .start-button:hover {
   background-image: linear-gradient(45deg, #219ebc, #8ecae6); /* 鼠标悬停效果 */
+  box-shadow: 0px 6px 12px #000000c3
+
 }
 
+.homepage-image {
+  flex:0 0 50%;
+  background-image: url('/Applications/soure/softeditlearning/accountingapp/src/pages/playground/homepagepicture.webp');
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 150px;
+ 
+}
+
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  flex: 1; /* Takes up the remaining space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center;
+  text-align: center;
+  padding-top: 100px; 
+}
+
+.homepage-image img {
+  max-width: 100%; /* Limits the image size to not exceed the container */
+  max-height: 100%; /* You can also limit by height */
+  /* Add more styling as needed */
+}
+
+
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 20px;
+}
+
+.logo {
+  height: auto; /* Adjust size as needed */
+  width: 70px;
+  padding-top: 20px;
+}
+
+.logo-text {
+  font-size: 1.5rem; /* Adjust font-size as needed */
+  margin-left: 10px; /* Optional: if you want the font to be bold */
+  color: #000; /* Adjust the text color as needed */
+
+}

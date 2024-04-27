@@ -1,11 +1,14 @@
 body {
   height:100%;
+  width: 100%;
   margin: 0;
+  border: none;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+   padding: 0;
   
 }
 
@@ -13,4 +16,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.parent-container {
+  display: flex;
+  flex-direction: row; /* This is the default value and may not be needed */
+  align-items: flex-start; /* This will align children to the top */
+  justify-content: flex-start; /* This will align children to the left */
+}
+
 
