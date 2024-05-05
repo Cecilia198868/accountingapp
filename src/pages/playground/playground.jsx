@@ -1,57 +1,99 @@
 import React from "react";
 import "./playground.css";
 import axios from "axios";
-
-// fetch, axios
+import { useState } from "react";
 
 function Playground() {
-	const handleCreateOrder = () => {
+	const handleCreateOrder = (id, title, type, desc) => {
 		axios.post("/v1/order/create", {
-			id: 1,
-			title: "1",
-			type: "wants",
-			desc: "lot",
+			id,
+			title,
+			type,
+			desc,
 		});
 	};
-	const handleUpdateOrders = () => {
-		axios.post("/v1/order/create", {
-			orderId: 2,
-			newName: "Gas",
-			newAssigned: 300,
-			title: "1",
-			type: "wants",
-			desc: "lot",
+	const handleUpdateOrders = (id, name, assigned, title, type, desc) => {
+		axios.post("http://localhost:3001/v1/order/create", {
+			id,
+			name,
+			assigned,
+			title,
+			type,
+			desc,
 		});
 	};
-	const handleReadOrders = () => {
-		axios.post("/v1/order/create", {
-			id: 2,
-			title: "1",
-			type: "wants",
-			desc: "lot",
-			limit: 99,
-			offset: 5,
+	const handleReadOrders = (id, title, type, desc, limit, offset) => {
+		axios.post("http://localhost:3001/v1/order/create", {
+			id,
+			title,
+			type,
+			desc,
+			limit,
+			offset,
 		});
 	};
-	const handleReadOrder = () => {
-		axios.post("/v1/order/create", {
-			id: 2,
-			title: "1",
-			type: "wants",
-			desc: "lot",
-			name: "water",
-			assigned: 200,
+	const handleReadOrder = (id, title, type, desc, name, assigned) => {
+		axios.post("http://localhost:3001/v1/order/create", {
+			id,
+			title,
+			type,
+			desc,
+			name,
+			assigned,
 		});
 	};
-	const handleDeleteOrders = () => {
-		axios.post("/v1/order/create", {
-			id: 2,
-			title: "1",
-			type: "wants",
-			desc: "lot",
+	const handleDeleteOrders = (id, title, type, desc) => {
+		axios.post("http://localhost:3001/v1/order/create", {
+			id,
+			title,
+			type,
+			desc,
 		});
 	};
 
+	const [id, setId] = useState("");
+	const [title, setTitle] = useState("");
+	const [type, setType] = useState("");
+	const [description, setDescription] = useState("");
+	const [name, setName] = useState("");
+	const [assigned, setAssigned] = useState("");
+	const [limit, setLimit] = useState("");
+	const [offset, setOffset] = useState("");
+
+	const handleSubmit = (event) => {
+		event.preventDefault(); // 防止表单提交后页面重新加载
+		event.stopPropagation();
+		alert("A name was submitted: ");
+		console.log({ id, title, type, description });
+		handleCreateOrder(id, title, type, description);
+	};
+	const handleIdChange = (event) => {
+		setId(event.target.value);
+	};
+
+	const handleTitleChange = (event) => {
+		setTitle(event.target.value);
+	};
+
+	const handleTypeChange = (event) => {
+		setType(event.target.value);
+	};
+
+	const handleDescriptionChange = (event) => {
+		setDescription(event.target.value);
+	};
+	const handleName = (event) => {
+		setName(event.target.value);
+	};
+	const handleAssigned = (event) => {
+		setAssigned(event.target.value);
+	};
+	const handleLimit = (event) => {
+		setLimit(event.target.value);
+	};
+	const handleOffset = (event) => {
+		setOffset(event.target.value);
+	};
 	return (
 		<div className="homepage">
 			<div className="header">
@@ -61,24 +103,153 @@ function Playground() {
 				<button className="start-button" type="button">
 					Get Started
 				</button> */}
-				<button type="button" onClick={handleCreateOrder}>
-					create order
-				</button>
-				<button type="button" onClick={handleReadOrders}>
-					read orders
-				</button>
-				<button type="button" onClick={handleUpdateOrders}>
+
+				<form onSubmit={handleSubmit}>
+					Create Orders
+					<label>
+						Id
+						<input type="number" value={id} onChange={handleIdChange} />
+					</label>
+					<label>
+						Title
+						<input type="text" value={title} onChange={handleTitleChange} />
+					</label>
+					<label>
+						Type
+						<input type="text" value={type} onChange={handleTypeChange} />
+					</label>
+					<label>
+						Describe
+						<input
+							type="text"
+							value={description}
+							onChange={handleDescriptionChange}
+						/>
+					</label>
+					<button type="submit">Submit</button>
+				</form>
+				<form onSubmit={handleSubmit}>
+					Read Order
+					<label>
+						Id
+						<input type="number" value={id} onChange={handleIdChange} />
+					</label>
+					<label>
+						Title
+						<input type="text" value={title} onChange={handleTitleChange} />
+					</label>
+					<label>
+						Type
+						<input type="text" value={type} onChange={handleTypeChange} />
+					</label>
+					<label>
+						Describe
+						<input
+							type="text"
+							value={description}
+							onChange={handleDescriptionChange}
+						/>
+					</label>
+					<label>
+						Name
+						<input type="text" value={name} onChange={handleName} />
+					</label>
+					<label>
+						Assigned
+						<input type="number" value={assigned} onChange={handleAssigned} />
+					</label>
+					<button type="submit">Submit</button>
+				</form>
+				<form onSubmit={handleSubmit}>
+					Read Orders
+					<label>
+						Id
+						<input type="number" value={id} onChange={handleIdChange} />
+					</label>
+					<label>
+						Title
+						<input type="text" value={title} onChange={handleTitleChange} />
+					</label>
+					<label>
+						Type
+						<input type="text" value={type} onChange={handleTypeChange} />
+					</label>
+					<label>
+						Describe
+						<input
+							type="text"
+							value={description}
+							onChange={handleDescriptionChange}
+						/>
+					</label>
+					<label>
+						Limit
+						<input type="number" value={limit} onChange={handleLimit} />
+					</label>
+					<label>
+						Offset
+						<input type="number" value={offset} onChange={handleOffset} />
+					</label>
+					<button type="submit">Submit</button>
+				</form>
+				<form onSubmit={handleSubmit}>
 					Update Orders
-				</button>
-				<button type="button" onClick={handleReadOrder}>
-					read order
-				</button>
-				<button type="button" onClick={handleDeleteOrders}>
+					<label>
+						Id
+						<input type="number" value={id} onChange={handleIdChange} />
+					</label>
+					<label>
+						Title
+						<input type="text" value={title} onChange={handleTitleChange} />
+					</label>
+					<label>
+						Type
+						<input type="text" value={type} onChange={handleTypeChange} />
+					</label>
+					<label>
+						Describe
+						<input
+							type="text"
+							value={description}
+							onChange={handleDescriptionChange}
+						/>
+					</label>
+					<label>
+						Name
+						<input type="text" value={name} onChange={handleName} />
+					</label>
+					<label>
+						Assigned
+						<input type="number" value={assigned} onChange={handleAssigned} />
+					</label>
+					<button type="submit">Submit</button>
+				</form>
+				<form onSubmit={handleSubmit}>
 					Delete Orders
-				</button>
+					<label>
+						Id
+						<input type="number" value={id} onChange={handleIdChange} />
+					</label>
+					<label>
+						Title
+						<input type="text" value={title} onChange={handleTitleChange} />
+					</label>
+					<label>
+						Type
+						<input type="text" value={type} onChange={handleTypeChange} />
+					</label>
+					<label>
+						Describe
+						<input
+							type="text"
+							value={description}
+							onChange={handleDescriptionChange}
+						/>
+					</label>
+					<button type="submit">Submit</button>
+				</form>
 			</div>
 		</div>
 	);
 }
-
 export default Playground;

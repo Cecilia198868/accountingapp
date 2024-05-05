@@ -1,17 +1,18 @@
+import { readOs } from "../services/read-orders.js";
 import { orders } from "./create-orders-controller.js";
 
 export function updateOrders(req, res) {
-	const { orderId, newName, newAssigned } = JSON.parse(req.body);
+	const { id, name, assigned } = JSON.parse(req.body);
 
-	if (!orderId) {
-		return "OrderId not found";
+	if (!id) {
+		return "Id not found";
 	}
-	if (!newName) {
-		return "newName not found";
+	if (!name) {
+		return "name not found";
 	}
-	if (!newAssigned) {
-		return "newAssigned not found";
+	if (!assigned) {
+		return "assigned not found";
 	}
-
+	readOs({ id: body.id, name: body.name, assigned: body.assigned });
 	res.status(200).json(orders);
 }
