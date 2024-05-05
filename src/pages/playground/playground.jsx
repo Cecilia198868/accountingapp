@@ -13,7 +13,7 @@ function Playground() {
 		});
 	};
 	const handleUpdateOrders = (id, name, assigned, title, type, desc) => {
-		axios.post("http://localhost:3001/v1/order/create", {
+		axios.post("/v1/order/create", {
 			id,
 			name,
 			assigned,
@@ -23,7 +23,7 @@ function Playground() {
 		});
 	};
 	const handleReadOrders = (id, title, type, desc, limit, offset) => {
-		axios.post("http://localhost:3001/v1/order/create", {
+		axios.post("/v1/order/create", {
 			id,
 			title,
 			type,
@@ -33,7 +33,7 @@ function Playground() {
 		});
 	};
 	const handleReadOrder = (id, title, type, desc, name, assigned) => {
-		axios.post("http://localhost:3001/v1/order/create", {
+		axios.post("/v1/order/create", {
 			id,
 			title,
 			type,
@@ -43,7 +43,7 @@ function Playground() {
 		});
 	};
 	const handleDeleteOrders = (id, title, type, desc) => {
-		axios.post("http://localhost:3001/v1/order/create", {
+		axios.post("/v1/order/create", {
 			id,
 			title,
 			type,
@@ -62,7 +62,8 @@ function Playground() {
 
 	const handleSubmit = (event) => {
 		event.preventDefault(); // 防止表单提交后页面重新加载
-		event.stopPropagation();
+		// event.stopPropagation();
+
 		alert("A name was submitted: ");
 		console.log({ id, title, type, description });
 		handleCreateOrder(id, title, type, description);

@@ -9,5 +9,7 @@ export function readOrders(req, res) {
 	if (typeof query.offset !== "number") {
 		throw new Error("need offset params");
 	}
+
+	readOs({ limit: query.limit, offset: query.offset });
 	res.status(200).json(orders);
 }
