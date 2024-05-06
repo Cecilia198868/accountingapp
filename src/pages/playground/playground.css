@@ -25,7 +25,12 @@
   align-items:  center;
   justify-content: center;
   height: 100vh; 
+<<<<<<< HEAD
   color: hsl(0, 20%, 1%); 
+=======
+  color: #ffffff; 
+  background-image:url('/Applications/soure/softeditlearning/accountingapp/public/homepage-background.jpg');
+>>>>>>> main
   font-family: 'Arial', sans-serif; 
   padding: 0;
 }
