@@ -1,4 +1,4 @@
-import { saveOrder } from "../services/create-orders.js";
+import { createOrder } from "../services/create-orders.js";
 
 export const orders = [
 	{ id: 1, Name: "Gas", assigned: 150 },
