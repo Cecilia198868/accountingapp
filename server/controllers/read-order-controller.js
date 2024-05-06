@@ -1,6 +1,4 @@
-import { orders } from "./create-orders-controller.js";
-
-export async function readOrder(req, res) {
+export async function readOrderController(req, res) {
 	const body = JSON.parse(req.body);
 	if (!body.name) {
 		throw new Error("The name needed");
