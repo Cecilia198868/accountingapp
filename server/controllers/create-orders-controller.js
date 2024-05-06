@@ -1,17 +1,12 @@
-import { saveOrder } from "../services/create-orders.js";
+import { createOrders } from "../services/create-orders.js";
 
-export const orders = [
-	{ id: 1, Name: "Gas", assigned: 150 },
-	{ id: 2, Name: " Electricity", assigned: 200 },
-	{ id: 3, Name: "Garbage", assigned: 60 },
-];
 const types = {
 	bills: true,
 	needs: true,
 	wants: true,
 };
 
-export async function createOrder(req, res) {
+export async function createOrderController(req, res) {
 	const body = req.body;
 	console.log(body);
 	const orderData = req.body;
@@ -29,7 +24,7 @@ export async function createOrder(req, res) {
 		throw new Error("Desc need a string");
 	}
 	console.log("--debug--", "run create order server");
-	saveOrder({ title: body.title, type: body.type, desc: body.desc });
+	createOrders({ title: body.title, type: body.type, desc: body.desc });
 	console.log("running create order");
 	res.status(200).json({ success: true });
 }

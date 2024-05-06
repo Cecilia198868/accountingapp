@@ -4,7 +4,7 @@ import path from "node:path";
 const scriptRunPath = process.cwd();
 // 使用`process.cwd()`方法获取当前工作目录的路径。
 
-export function readOs(order) {
+export function readOrders(order) {
 	const datastorePath = path.join(scriptRunPath, "data-store");
 	//    使用`path.join`方法拼接路径。它以`scriptRunPath`（当前工作目录）为基础，加上子目录`"data-store"`，从而生成一个指向"data-store"文件夹的完整路径，并赋值给`datastorePath`。
 	if (!fs.existsSync(datastorePath)) {

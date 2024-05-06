@@ -4,50 +4,35 @@ import axios from "axios";
 import { useState } from "react";
 
 function Playground() {
-	const handleCreateOrder = (id, title, type, desc) => {
+	const handleCreateOrder = (title, type, desc) => {
 		axios.post("/v1/order/create", {
-			id,
 			title,
 			type,
 			desc,
 		});
 	};
-	const handleUpdateOrders = (id, name, assigned, title, type, desc) => {
-		axios.post("/v1/order/create", {
+	const handleUpdateOrders = (id, name, assigned) => {
+		axios.patch("/v1/order/:id/update", {
 			id,
 			name,
 			assigned,
-			title,
-			type,
-			desc,
 		});
 	};
-	const handleReadOrders = (id, title, type, desc, limit, offset) => {
-		axios.post("/v1/order/create", {
-			id,
-			title,
-			type,
-			desc,
+	const handleReadOrders = (limit, offset) => {
+		axios.get("/v1/orders", {
 			limit,
 			offset,
 		});
 	};
-	const handleReadOrder = (id, title, type, desc, name, assigned) => {
-		axios.post("/v1/order/create", {
-			id,
-			title,
-			type,
-			desc,
+	const handleReadOrder = (name, assigned) => {
+		axios.get("/v1/order", {
 			name,
 			assigned,
 		});
 	};
-	const handleDeleteOrders = (id, title, type, desc) => {
-		axios.post("/v1/order/create", {
+	const handleDeleteOrders = (id) => {
+		axios.delete("/v1/order/:id/delete", {
 			id,
-			title,
-			type,
-			desc,
 		});
 	};
 
@@ -60,13 +45,45 @@ function Playground() {
 	const [limit, setLimit] = useState("");
 	const [offset, setOffset] = useState("");
 
-	const handleSubmit = (event) => {
+	const createOrderSubmit = (event) => {
+		event.preventDefault(); // 防止表单提交后页面重新加载
+		// event.stopPropagation();
+
+		alert("A title was submitted: ");
+		console.log({ title, type, description });
+		handleCreateOrder(title, type, description);
+	};
+	const updateOrdersSubmit = (event) => {
+		event.preventDefault(); // 防止表单提交后页面重新加载
+		// event.stopPropagation();
+
+		alert("A id was submitted: ");
+		console.log({ id, name, assigned });
+		handleUpdateOrders(id, name, assigned);
+	};
+	const readOrdersSubmit = (event) => {
+		event.preventDefault(); // 防止表单提交后页面重新加载
+		// event.stopPropagation();
+
+		alert("A limit was submitted: ");
+		console.log({ limit, offset });
+		handleReadOrders(limit, offset);
+	};
+	const readOrderSubmit = (event) => {
 		event.preventDefault(); // 防止表单提交后页面重新加载
 		// event.stopPropagation();
 
 		alert("A name was submitted: ");
-		console.log({ id, title, type, description });
-		handleCreateOrder(id, title, type, description);
+		console.log({ name, assigned });
+		handleReadOrder(name, assigned);
+	};
+	const deleteOrdersSubmit = (event) => {
+		event.preventDefault(); // 防止表单提交后页面重新加载
+		// event.stopPropagation();
+
+		alert("A id was submitted: ");
+		console.log({ id });
+		handleDeleteOrders(id);
 	};
 	const handleIdChange = (event) => {
 		setId(event.target.value);
@@ -105,12 +122,8 @@ function Playground() {
 					Get Started
 				</button> */}
 
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={createOrderSubmit}>
 					Create Orders
-					<label>
-						Id
-						<input type="number" value={id} onChange={handleIdChange} />
-					</label>
 					<label>
 						Title
 						<input type="text" value={title} onChange={handleTitleChange} />
@@ -129,28 +142,8 @@ function Playground() {
 					</label>
 					<button type="submit">Submit</button>
 				</form>
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={readOrderSubmit}>
 					Read Order
-					<label>
-						Id
-						<input type="number" value={id} onChange={handleIdChange} />
-					</label>
-					<label>
-						Title
-						<input type="text" value={title} onChange={handleTitleChange} />
-					</label>
-					<label>
-						Type
-						<input type="text" value={type} onChange={handleTypeChange} />
-					</label>
-					<label>
-						Describe
-						<input
-							type="text"
-							value={description}
-							onChange={handleDescriptionChange}
-						/>
-					</label>
 					<label>
 						Name
 						<input type="text" value={name} onChange={handleName} />
@@ -161,28 +154,8 @@ function Playground() {
 					</label>
 					<button type="submit">Submit</button>
 				</form>
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={readOrdersSubmit}>
 					Read Orders
-					<label>
-						Id
-						<input type="number" value={id} onChange={handleIdChange} />
-					</label>
-					<label>
-						Title
-						<input type="text" value={title} onChange={handleTitleChange} />
-					</label>
-					<label>
-						Type
-						<input type="text" value={type} onChange={handleTypeChange} />
-					</label>
-					<label>
-						Describe
-						<input
-							type="text"
-							value={description}
-							onChange={handleDescriptionChange}
-						/>
-					</label>
 					<label>
 						Limit
 						<input type="number" value={limit} onChange={handleLimit} />
@@ -193,27 +166,11 @@ function Playground() {
 					</label>
 					<button type="submit">Submit</button>
 				</form>
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={updateOrdersSubmit}>
 					Update Orders
 					<label>
 						Id
 						<input type="number" value={id} onChange={handleIdChange} />
-					</label>
-					<label>
-						Title
-						<input type="text" value={title} onChange={handleTitleChange} />
-					</label>
-					<label>
-						Type
-						<input type="text" value={type} onChange={handleTypeChange} />
-					</label>
-					<label>
-						Describe
-						<input
-							type="text"
-							value={description}
-							onChange={handleDescriptionChange}
-						/>
 					</label>
 					<label>
 						Name
@@ -225,27 +182,11 @@ function Playground() {
 					</label>
 					<button type="submit">Submit</button>
 				</form>
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={deleteOrdersSubmit}>
 					Delete Orders
 					<label>
 						Id
 						<input type="number" value={id} onChange={handleIdChange} />
-					</label>
-					<label>
-						Title
-						<input type="text" value={title} onChange={handleTitleChange} />
-					</label>
-					<label>
-						Type
-						<input type="text" value={type} onChange={handleTypeChange} />
-					</label>
-					<label>
-						Describe
-						<input
-							type="text"
-							value={description}
-							onChange={handleDescriptionChange}
-						/>
 					</label>
 					<button type="submit">Submit</button>
 				</form>

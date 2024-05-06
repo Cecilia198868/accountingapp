@@ -1,6 +1,4 @@
-import { orders } from "./create-orders-controller.js";
-
-export function updateOrders(req, res) {
+export function updateOrdersController(req, res) {
 	const { id, name, assigned } = JSON.parse(req.body);
 
 	if (!id) {
