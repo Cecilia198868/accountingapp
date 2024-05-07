@@ -12,7 +12,7 @@ function Playground() {
 		});
 	};
 	const handleUpdateOrders = (id, name, assigned) => {
-		axios.patch("/v1/order/:id/update", {
+		axios.patch("/v1/order/update", {
 			id,
 			name,
 			assigned,
@@ -31,7 +31,7 @@ function Playground() {
 		});
 	};
 	const handleDeleteOrders = (id) => {
-		axios.delete("/v1/order/:id/delete", {
+		axios.delete("/v1/order/delete", {
 			id,
 		});
 	};
@@ -140,6 +140,7 @@ function Playground() {
 							onChange={handleDescriptionChange}
 						/>
 					</label>
+					<handleCreateOrder />
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={readOrderSubmit}>
@@ -152,6 +153,7 @@ function Playground() {
 						Assigned
 						<input type="number" value={assigned} onChange={handleAssigned} />
 					</label>
+					<handleReadOrder />
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={readOrdersSubmit}>
@@ -164,6 +166,7 @@ function Playground() {
 						Offset
 						<input type="number" value={offset} onChange={handleOffset} />
 					</label>
+					<handleReadOrders />
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={updateOrdersSubmit}>
@@ -180,6 +183,7 @@ function Playground() {
 						Assigned
 						<input type="number" value={assigned} onChange={handleAssigned} />
 					</label>
+					<handleUpdateOrders />
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={deleteOrdersSubmit}>
@@ -188,6 +192,7 @@ function Playground() {
 						Id
 						<input type="number" value={id} onChange={handleIdChange} />
 					</label>
+					<handleDeleteOrders />
 					<button type="submit">Submit</button>
 				</form>
 			</div>

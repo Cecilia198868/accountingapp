@@ -1,3 +1,4 @@
+import { readOrders } from "../services/read-orders.js";
 export function readOrdersController(req, res) {
 	const query = req.query;
 	if (typeof query.limit !== "number" || query.limit > 100) {
@@ -6,6 +7,6 @@ export function readOrdersController(req, res) {
 	if (typeof query.offset !== "number") {
 		throw new Error("need offset params");
 	}
-
-	res.status(200).json(orders);
+	readOrders({ limit, offset });
+	res.status(200).json({ success: true });
 }

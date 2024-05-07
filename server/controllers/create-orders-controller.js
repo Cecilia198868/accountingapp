@@ -8,8 +8,6 @@ const types = {
 
 export async function createOrderController(req, res) {
 	const body = req.body;
-	console.log(body);
-	const orderData = req.body;
 
 	if (!body.title) {
 		// title
@@ -23,8 +21,6 @@ export async function createOrderController(req, res) {
 		// desc
 		throw new Error("Desc need a string");
 	}
-	console.log("--debug--", "run create order server");
 	createOrders({ title: body.title, type: body.type, desc: body.desc });
-	console.log("running create order");
 	res.status(200).json({ success: true });
 }

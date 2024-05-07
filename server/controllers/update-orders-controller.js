@@ -1,15 +1,15 @@
+import { updateOrders } from "../services/update-orders.js";
 export function updateOrdersController(req, res) {
-	const { id, name, assigned } = JSON.parse(req.body);
-
+	const { id, name, assigned } = req.body;
 	if (!id) {
-		return "Id not found";
+		throw new Error("Id not found");
 	}
 	if (!name) {
-		return "name not found";
+		throw new Error("name not found");
 	}
 	if (!assigned) {
-		return "assigned not found";
+		throw new Error("assigned not found");
 	}
-
-	res.status(200).json(orders);
+	updateOrders({ id, name, assigned });
+	res.status(200).json({ success: true });
 }
