@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { v4 as uuidv4 } from "uuod";
 
 const scriptRunPath = process.cwd();
 
@@ -12,10 +13,16 @@ export function createOrders(order) {
 
 	const filePath = path.join(datastorePath, "orders.json");
 
+	if (!fs.existsSync(filePath)) {
+		fs.writeFileSync(filePath, JSON.stringify([]));
+	}
+
 	const buff = fs.readFileSync(filePath);
 	const data = buff.toString() || "[]";
 	const orders = JSON.parse(data);
-	orders.push(order);
+
+	const orderWithId = { ...order, id: uuidv4() };
+	orders.push(orderWithId);
 
 	fs.writeFileSync(filePath, JSON.stringify(orders));
 }
