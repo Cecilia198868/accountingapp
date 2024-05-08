@@ -3,7 +3,7 @@ import "./playground.css";
 import axios from "axios";
 import { useState } from "react";
 
-function Playground() {
+export function Playground() {
 	const handleCreateOrder = (title, type, desc) => {
 		axios.post("/v1/order/create", {
 			title,
@@ -75,7 +75,7 @@ function Playground() {
 
 		alert("A name was submitted: ");
 		console.log({ name, assigned });
-		handleReadOrder(name, assigned);
+		HandleReadOrders(name, assigned);
 	};
 	const deleteOrdersSubmit = (event) => {
 		event.preventDefault(); // 防止表单提交后页面重新加载
@@ -140,7 +140,6 @@ function Playground() {
 							onChange={handleDescriptionChange}
 						/>
 					</label>
-					<handleCreateOrder />
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={readOrderSubmit}>
@@ -153,7 +152,6 @@ function Playground() {
 						Assigned
 						<input type="number" value={assigned} onChange={handleAssigned} />
 					</label>
-					<handleReadOrder />
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={readOrdersSubmit}>
@@ -166,7 +164,6 @@ function Playground() {
 						Offset
 						<input type="number" value={offset} onChange={handleOffset} />
 					</label>
-					<handleReadOrders />
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={updateOrdersSubmit}>
@@ -183,7 +180,6 @@ function Playground() {
 						Assigned
 						<input type="number" value={assigned} onChange={handleAssigned} />
 					</label>
-					<handleUpdateOrders />
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={deleteOrdersSubmit}>
@@ -192,7 +188,6 @@ function Playground() {
 						Id
 						<input type="number" value={id} onChange={handleIdChange} />
 					</label>
-					<handleDeleteOrders />
 					<button type="submit">Submit</button>
 				</form>
 			</div>

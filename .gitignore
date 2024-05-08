@@ -14,4 +14,4 @@ node_modules/
 .vscode/
 .idea/
 *.sql
-data-store/
+data-store
