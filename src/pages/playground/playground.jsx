@@ -4,30 +4,32 @@ import axios from "axios";
 import { useState } from "react";
 
 export function Playground() {
-	const handleCreateOrder = (title, type, desc) => {
+	const handleCreateOrder = (id, date, customer, amount) => {
 		axios.post("/v1/order/create", {
-			title,
-			type,
-			desc,
+			id,
+			date,
+			customer,
+			amount,
 		});
 	};
-	const handleUpdateOrders = (id, name, assigned) => {
+	const handleUpdateOrders = (id, date, customer, amount) => {
 		axios.patch("/v1/order/update", {
 			id,
-			name,
-			assigned,
+			date,
+			customer,
+			amount,
 		});
 	};
-	const handleReadOrders = (limit, offset) => {
+	const handleReadOrders = (startDate, endDate, customer) => {
 		axios.get("/v1/orders", {
-			limit,
-			offset,
+			startDate,
+			endDate,
+			customer,
 		});
 	};
-	const handleReadOrder = (name, assigned) => {
+	const handleReadOrder = (id) => {
 		axios.get("/v1/order", {
-			name,
-			assigned,
+			id,
 		});
 	};
 	const handleDeleteOrders = (id) => {
@@ -37,45 +39,40 @@ export function Playground() {
 	};
 
 	const [id, setId] = useState("");
-	const [title, setTitle] = useState("");
-	const [type, setType] = useState("");
-	const [description, setDescription] = useState("");
-	const [name, setName] = useState("");
-	const [assigned, setAssigned] = useState("");
-	const [limit, setLimit] = useState("");
-	const [offset, setOffset] = useState("");
+	const [ids, setIds] = useState("");
+	const [date, setDate] = useState("");
+	const [customer, setCustomer] = useState("");
+	const [amount, setAmount] = useState("");
+	const [startDate, setStartDate] = useState("");
+	const [endDate, setEndDate] = useState("");
 
 	const createOrderSubmit = (event) => {
 		event.preventDefault(); // 防止表单提交后页面重新加载
 		// event.stopPropagation();
 
-		alert("A title was submitted: ");
-		console.log({ title, type, description });
-		handleCreateOrder(title, type, description);
+		alert("The order was create ");
+		console.log({ id, date, customer, amount });
+		handleCreateOrder(id, date, customer, amount);
 	};
 	const updateOrdersSubmit = (event) => {
 		event.preventDefault(); // 防止表单提交后页面重新加载
 		// event.stopPropagation();
 
-		alert("A id was submitted: ");
-		console.log({ id, name, assigned });
-		handleUpdateOrders(id, name, assigned);
+		alert("The orders was updated. ");
+		console.log({ id, date, customer, amount });
+		handleUpdateOrders(id, date, customer, amount);
+	};
+	const readOrderSubmit = (event) => {
+		event.preventDefault();
+		console.log({ id }); // 防止表单提交后页面重新加载
+		handleReadOrder(id);
 	};
 	const readOrdersSubmit = (event) => {
 		event.preventDefault(); // 防止表单提交后页面重新加载
-		// event.stopPropagation();
 
-		alert("A limit was submitted: ");
-		console.log({ limit, offset });
-		handleReadOrders(limit, offset);
-	};
-	const readOrderSubmit = (event) => {
-		event.preventDefault(); // 防止表单提交后页面重新加载
-		// event.stopPropagation();
-
-		alert("A name was submitted: ");
-		console.log({ name, assigned });
-		HandleReadOrders(name, assigned);
+		alert("The orders was read. ");
+		console.log({ startDate, endDate, customer });
+		handleReadOrders(startDate, endDate, customer);
 	};
 	const deleteOrdersSubmit = (event) => {
 		event.preventDefault(); // 防止表单提交后页面重新加载
@@ -88,30 +85,27 @@ export function Playground() {
 	const handleIdChange = (event) => {
 		setId(event.target.value);
 	};
-
-	const handleTitleChange = (event) => {
-		setTitle(event.target.value);
+	const handleIdsChange = (event) => {
+		setIds(event.target.value);
+	};
+	const handleDateChange = (event) => {
+		setDate(event.target.value);
 	};
 
-	const handleTypeChange = (event) => {
-		setType(event.target.value);
+	const handleAmountChange = (event) => {
+		setAmount(event.target.value);
 	};
 
-	const handleDescriptionChange = (event) => {
-		setDescription(event.target.value);
+	const handleCustomerChange = (event) => {
+		setCustomer(event.target.value);
 	};
-	const handleName = (event) => {
-		setName(event.target.value);
+	const handleStartDateChange = (event) => {
+		setStartDate(event.target.value);
 	};
-	const handleAssigned = (event) => {
-		setAssigned(event.target.value);
+	const handleEndDateChange = (event) => {
+		setEndDate(event.target.value);
 	};
-	const handleLimit = (event) => {
-		setLimit(event.target.value);
-	};
-	const handleOffset = (event) => {
-		setOffset(event.target.value);
-	};
+
 	return (
 		<div className="homepage">
 			<div className="header">
@@ -125,60 +119,84 @@ export function Playground() {
 				<form onSubmit={createOrderSubmit}>
 					Create Orders
 					<label>
-						Title
-						<input type="text" value={title} onChange={handleTitleChange} />
+						id
+						<input type="number" value={id} onChange={handleIdChange} />
 					</label>
 					<label>
-						Type
-						<input type="text" value={type} onChange={handleTypeChange} />
+						date
+						<input type="number" value={date} onChange={handleDateChange} />
 					</label>
 					<label>
-						Describe
+						customer
 						<input
 							type="text"
-							value={description}
-							onChange={handleDescriptionChange}
+							value={customer}
+							onChange={handleCustomerChange}
 						/>
+					</label>
+					<label>
+						amount
+						<input type="number" value={amount} onChange={handleAmountChange} />
 					</label>
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={readOrderSubmit}>
 					Read Order
 					<label>
-						Name
-						<input type="text" value={name} onChange={handleName} />
-					</label>
-					<label>
-						Assigned
-						<input type="number" value={assigned} onChange={handleAssigned} />
+						id
+						<input type="number" value={id} onChange={handleIdChange} />
 					</label>
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={readOrdersSubmit}>
 					Read Orders
 					<label>
-						Limit
-						<input type="number" value={limit} onChange={handleLimit} />
+						startDate
+						<input
+							type="number"
+							value={startDate}
+							onChange={handleStartDateChange}
+						/>
 					</label>
 					<label>
-						Offset
-						<input type="number" value={offset} onChange={handleOffset} />
+						endDate
+						<input
+							type="number"
+							value={endDate}
+							onChange={handleEndDateChange}
+						/>
+					</label>
+					<label>
+						customer
+						<input
+							type="text"
+							value={customer}
+							onChange={handleCustomerChange}
+						/>
 					</label>
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={updateOrdersSubmit}>
 					Update Orders
 					<label>
-						Id
+						id
 						<input type="number" value={id} onChange={handleIdChange} />
 					</label>
 					<label>
-						Name
-						<input type="text" value={name} onChange={handleName} />
+						date
+						<input type="number" value={date} onChange={handleDateChange} />
 					</label>
 					<label>
-						Assigned
-						<input type="number" value={assigned} onChange={handleAssigned} />
+						customer
+						<input
+							type="text"
+							value={customer}
+							onChange={handleCustomerChange}
+						/>
+					</label>
+					<label>
+						amount
+						<input type="number" value={amount} onChange={handleAmountChange} />
 					</label>
 					<button type="submit">Submit</button>
 				</form>
