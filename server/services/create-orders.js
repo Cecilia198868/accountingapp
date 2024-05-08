@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { v4 as uuidv4 } from "uuod";
+import { v4 as uuidv4 } from "uuid";
 
 const scriptRunPath = process.cwd();
 
