@@ -21,8 +21,12 @@ export function createOrders(order) {
 	const data = buff.toString() || "[]";
 	const orders = JSON.parse(data);
 
-	const orderWithId = { ...order, id: uuidv4() };
-	orders.push(orderWithId);
+	const orderWithIdAndDate = {
+		...order,
+		id: uuidv4(),
+		date: new Date().toISOString(),
+	};
+	orders.push(orderWithIdAndDate);
 
 	fs.writeFileSync(filePath, JSON.stringify(orders));
 }
