@@ -13,12 +13,15 @@ export function Playground() {
 		});
 	};
 	const handleUpdateOrders = (id, type, title, amount) => {
-		axios.patch("/v1/order/update", {
-			id,
-			type,
-			title,
-			amount,
-		});
+		axios
+			.patch(`/v1/order/update/${id}`, { type, title, amount })
+			.then((response) => {
+				console.log("Order updated successfully:", response.data);
+				alert("The order was updated.");
+			})
+			.catch((error) => {
+				console.error("Failed to update order:", error);
+			});
 	};
 	const handleReadOrders = (limit, offset) => {
 		axios.get("/v1/orders", {
@@ -60,10 +63,6 @@ export function Playground() {
 	};
 	const updateOrdersSubmit = (event) => {
 		event.preventDefault(); // 防止表单提交后页面重新加载
-		// event.stopPropagation();
-
-		alert("The orders was updated. ");
-		console.log({ id, type, title, amount });
 		handleUpdateOrders(id, type, title, amount);
 	};
 	const readOrderSubmit = (event) => {

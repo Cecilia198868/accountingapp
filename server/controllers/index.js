@@ -14,7 +14,7 @@ router.get("/order", handleThrow(readOrderController));
 
 router.get("/orders", handleThrow(readOrdersController));
 
-router.patch("/order/update", handleThrow(updateOrdersController));
+router.patch("/order/update/:id", handleThrow(updateOrdersController));
 // PATCH 请求用于对资源进行部分修改。与 PUT 请求相比，PATCH 专门用于资源的部分更新，而 PUT 则通常用于替换一个已存在的资源。
 
 router.delete("/order/delete/:id", handleThrow(deleteOrdersController));
