@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 
 export function Playground() {
+	const [list, setList] = useState([]);
 	const handleCreateOrder = (type, title, amount, desc) => {
 		axios.post("/v1/order/create", {
 			type,
@@ -14,20 +15,25 @@ export function Playground() {
 	};
 	const handleUpdateOrders = (id, type, title, amount) => {
 		axios
-			.patch(`/v1/order/update/${id}`, { type, title, amount })
+			.patch("/v1/order/update", { id, type, title, amount })
 			.then((response) => {
 				console.log("Order updated successfully:", response.data);
-				alert("The order was updated.");
+				// alert("The order was updated.");
 			})
 			.catch((error) => {
 				console.error("Failed to update order:", error);
 			});
 	};
 	const handleReadOrders = (limit, offset) => {
-		axios.get("/v1/orders", {
-			limit,
-			offset,
-		});
+		axios
+			.get("/v1/orders", {
+				limit,
+				offset,
+			})
+			.then((response) => {
+				console.log(response.data);
+				setList(response.data.data);
+			});
 	};
 	const handleReadOrder = (id) => {
 		axios.get("/v1/order", {
@@ -57,7 +63,7 @@ export function Playground() {
 		event.preventDefault(); // 防止表单提交后页面重新加载
 		// event.stopPropagation();
 
-		alert("The order was create ");
+		// alert("The order was create ");
 		console.log({ type, title, amount, desc });
 		handleCreateOrder(type, title, amount, desc);
 	};
@@ -73,7 +79,7 @@ export function Playground() {
 	const readOrdersSubmit = (event) => {
 		event.preventDefault(); // 防止表单提交后页面重新加载
 
-		alert("The orders was read. ");
+		// alert("The orders was read. ");
 		console.log({ limit, offset });
 		handleReadOrders(limit, offset);
 	};
@@ -114,7 +120,15 @@ export function Playground() {
 				<button className="start-button" type="button">
 					Get Started
 				</button> */}
-
+				<div>
+					{list.map((item) => {
+						return (
+							<div key={item.id}>
+								- {item.id}, {item.title}, {item.amount}
+							</div>
+						);
+					})}
+				</div>
 				<form onSubmit={createOrderSubmit}>
 					<h2 className="create-orders">Create Orders</h2>
 					<h3>
