@@ -4,28 +4,36 @@ import axios from "axios";
 import { useState } from "react";
 
 export function Playground() {
-	const handleCreateOrder = (id, date, customer, amount) => {
+	const [list, setList] = useState([]);
+	const handleCreateOrder = (type, title, amount, desc) => {
 		axios.post("/v1/order/create", {
-			id,
-			date,
-			customer,
+			type,
+			title,
 			amount,
+			desc,
 		});
 	};
-	const handleUpdateOrders = (id, date, customer, amount) => {
-		axios.patch("/v1/order/update", {
-			id,
-			date,
-			customer,
-			amount,
-		});
+	const handleUpdateOrders = (id, type, title, amount) => {
+		axios
+			.patch("/v1/order/update", { id, type, title, amount })
+			.then((response) => {
+				console.log("Order updated successfully:", response.data);
+				// alert("The order was updated.");
+			})
+			.catch((error) => {
+				console.error("Failed to update order:", error);
+			});
 	};
-	const handleReadOrders = (startDate, endDate, customer) => {
-		axios.get("/v1/orders", {
-			startDate,
-			endDate,
-			customer,
-		});
+	const handleReadOrders = (limit, offset) => {
+		axios
+			.get("/v1/orders", {
+				limit,
+				offset,
+			})
+			.then((response) => {
+				console.log(response.data);
+				setList(response.data.data);
+			});
 	};
 	const handleReadOrder = (id) => {
 		axios.get("/v1/order", {
@@ -33,34 +41,35 @@ export function Playground() {
 		});
 	};
 	const handleDeleteOrders = (id) => {
-		axios.delete("/v1/order/delete", {
-			id,
-		});
+		axios
+			.delete(`/v1/order/delete/${id}`)
+			.then((response) => {
+				console.log("Order deleted successfully:", response.data);
+			})
+			.catch((error) => {
+				console.error("Failed to delete order:", error);
+			});
 	};
 
-	const [id, setId] = useState("");
-	const [ids, setIds] = useState("");
-	const [date, setDate] = useState("");
-	const [customer, setCustomer] = useState("");
+	const [type, setType] = useState("");
+	const [title, setTitle] = useState("");
 	const [amount, setAmount] = useState("");
-	const [startDate, setStartDate] = useState("");
-	const [endDate, setEndDate] = useState("");
+	const [desc, setDesc] = useState("");
+	const [id, setId] = useState("");
+	const [limit, setLimit] = useState("");
+	const [offset, setOffset] = useState("");
 
 	const createOrderSubmit = (event) => {
 		event.preventDefault(); // 防止表单提交后页面重新加载
 		// event.stopPropagation();
 
-		alert("The order was create ");
-		console.log({ id, date, customer, amount });
-		handleCreateOrder(id, date, customer, amount);
+		// alert("The order was create ");
+		console.log({ type, title, amount, desc });
+		handleCreateOrder(type, title, amount, desc);
 	};
 	const updateOrdersSubmit = (event) => {
 		event.preventDefault(); // 防止表单提交后页面重新加载
-		// event.stopPropagation();
-
-		alert("The orders was updated. ");
-		console.log({ id, date, customer, amount });
-		handleUpdateOrders(id, date, customer, amount);
+		handleUpdateOrders(id, type, title, amount);
 	};
 	const readOrderSubmit = (event) => {
 		event.preventDefault();
@@ -70,40 +79,36 @@ export function Playground() {
 	const readOrdersSubmit = (event) => {
 		event.preventDefault(); // 防止表单提交后页面重新加载
 
-		alert("The orders was read. ");
-		console.log({ startDate, endDate, customer });
-		handleReadOrders(startDate, endDate, customer);
+		// alert("The orders was read. ");
+		console.log({ limit, offset });
+		handleReadOrders(limit, offset);
 	};
 	const deleteOrdersSubmit = (event) => {
-		event.preventDefault(); // 防止表单提交后页面重新加载
-		// event.stopPropagation();
-
-		alert("A id was submitted: ");
-		console.log({ id });
+		event.preventDefault();
+		console.log("Submitted id:", id);
 		handleDeleteOrders(id);
 	};
-	const handleIdChange = (event) => {
-		setId(event.target.value);
+	const handleTypeChange = (event) => {
+		setType(event.target.value);
 	};
-	const handleIdsChange = (event) => {
-		setIds(event.target.value);
+	const handleTitleChange = (event) => {
+		setTitle(event.target.value);
 	};
-	const handleDateChange = (event) => {
-		setDate(event.target.value);
+	const handleDescChange = (event) => {
+		setDesc(event.target.value);
 	};
 
 	const handleAmountChange = (event) => {
 		setAmount(event.target.value);
 	};
-
-	const handleCustomerChange = (event) => {
-		setCustomer(event.target.value);
+	const handleIdChange = (event) => {
+		setId(event.target.value);
 	};
-	const handleStartDateChange = (event) => {
-		setStartDate(event.target.value);
+	const handleLimitChange = (event) => {
+		setLimit(event.target.value);
 	};
-	const handleEndDateChange = (event) => {
-		setEndDate(event.target.value);
+	const handleOffsetChange = (event) => {
+		setOffset(event.target.value);
 	};
 
 	return (
@@ -115,97 +120,104 @@ export function Playground() {
 				<button className="start-button" type="button">
 					Get Started
 				</button> */}
-
+				<div>
+					{list.map((item) => {
+						return (
+							<div key={item.id}>
+								- {item.id}, {item.title}, {item.amount}
+							</div>
+						);
+					})}
+				</div>
 				<form onSubmit={createOrderSubmit}>
-					Create Orders
-					<label>
-						id
-						<input type="number" value={id} onChange={handleIdChange} />
-					</label>
-					<label>
-						date
-						<input type="number" value={date} onChange={handleDateChange} />
-					</label>
-					<label>
-						customer
-						<input
-							type="text"
-							value={customer}
-							onChange={handleCustomerChange}
-						/>
-					</label>
-					<label>
-						amount
-						<input type="number" value={amount} onChange={handleAmountChange} />
-					</label>
+					<h2 className="create-orders">Create Orders</h2>
+					<h3>
+						<label className="label h2">
+							type
+							<input type="text" value={type} onChange={handleTypeChange} />
+						</label>
+						<label>
+							title
+							<input type="text" value={title} onChange={handleTitleChange} />
+						</label>
+						<label>
+							amount
+							<input
+								type="number"
+								value={amount}
+								onChange={handleAmountChange}
+							/>
+						</label>
+						<label>
+							desc
+							<input type="text" value={desc} onChange={handleDescChange} />
+						</label>
+					</h3>
+
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={readOrderSubmit}>
-					Read Order
-					<label>
-						id
-						<input type="number" value={id} onChange={handleIdChange} />
-					</label>
+					<h2 className="read-order">Read Order</h2>
+					<h3>
+						<label>
+							id
+							<input type="text" value={id} onChange={handleIdChange} />
+						</label>
+					</h3>
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={readOrdersSubmit}>
-					Read Orders
-					<label>
-						startDate
-						<input
-							type="number"
-							value={startDate}
-							onChange={handleStartDateChange}
-						/>
-					</label>
-					<label>
-						endDate
-						<input
-							type="number"
-							value={endDate}
-							onChange={handleEndDateChange}
-						/>
-					</label>
-					<label>
-						customer
-						<input
-							type="text"
-							value={customer}
-							onChange={handleCustomerChange}
-						/>
-					</label>
+					<h2 className="read-orders">Read Orders</h2>
+					<h3>
+						<label>
+							limit
+							<input type="number" value={limit} onChange={handleLimitChange} />
+						</label>
+						<label>
+							offset
+							<input
+								type="number"
+								value={offset}
+								onChange={handleOffsetChange}
+							/>
+						</label>
+					</h3>
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={updateOrdersSubmit}>
-					Update Orders
-					<label>
-						id
-						<input type="number" value={id} onChange={handleIdChange} />
-					</label>
-					<label>
-						date
-						<input type="number" value={date} onChange={handleDateChange} />
-					</label>
-					<label>
-						customer
-						<input
-							type="text"
-							value={customer}
-							onChange={handleCustomerChange}
-						/>
-					</label>
-					<label>
-						amount
-						<input type="number" value={amount} onChange={handleAmountChange} />
-					</label>
+					<h2 className="update-orders">Update Orders</h2>
+					<h3>
+						<label>
+							id
+							<input type="text" value={id} onChange={handleIdChange} />
+						</label>
+						<label>
+							type
+							<input type="text" value={type} onChange={handleTypeChange} />
+						</label>
+						<label>
+							title
+							<input type="text" value={title} onChange={handleTitleChange} />
+						</label>
+						<label>
+							amount
+							<input
+								type="number"
+								value={amount}
+								onChange={handleAmountChange}
+							/>
+						</label>
+					</h3>
 					<button type="submit">Submit</button>
 				</form>
 				<form onSubmit={deleteOrdersSubmit}>
-					Delete Orders
-					<label>
-						Id
-						<input type="number" value={id} onChange={handleIdChange} />
-					</label>
+					<h2 className="delete-orders">Delete Orders</h2>
+					<h3>
+						<label>
+							Id
+							<input type="text" value={id} onChange={handleIdChange} />
+						</label>
+					</h3>
 					<button type="submit">Submit</button>
 				</form>
 			</div>
