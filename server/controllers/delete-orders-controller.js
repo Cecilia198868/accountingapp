@@ -4,7 +4,7 @@ export function deleteOrdersController(req, res) {
 	if (!id) {
 		return res
 			.status(400)
-			.json({ seccess: false, message: "No order Id provided" });
+			.json({ success: false, message: "No order Id provided" });
 	}
 
 	try {

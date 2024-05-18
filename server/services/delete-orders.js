@@ -22,12 +22,23 @@ export function deleteOrders(orderId) {
 		orders = JSON.parse(data);
 	}
 	const updatedOrders = orders.filter((order) => order.id !== orderId);
+	// filter 是 JavaScript 数组对象的一个方法，用于创建一个新数组。新数组包含所有通过所提供函数测试的元素。函数返回 true 的元素会被保留，返回 false 的元素会被过滤掉。
+	// 对于每个订单对象 order，函数会检查 order.id !== orderId 是否为 true。
+	// 	如果 order.id 不等于 orderId，则该订单对象会被保留在新数组中。
+	// 如果 order.id 等于 orderId，则该订单对象会被过滤掉。
 
 	const isDeleted = updatedOrders.length !== orders.length;
 
 	fs.writeFileSync(filePath, JSON.stringify(updatedOrders, null, 2));
 	console.log("Ordersfile updated.");
+	// 语法：fs.writeFileSync(path, data[, options])
+	// path：要写入的文件路径。
+	// data：要写入文件的数据。
+	// options（可选）：写入文件时的选项，可以包含编码、文件模式、标志等。
 
-	// 使用`fs.writeFileSync`方法同步写入数据到`filePath`指定的文件。数据通过`JSON.stringify(orders)`转换为字符串格式。
+	// 语法：JSON.stringify(value[, replacer[, space]])
+	// value：要转换为 JSON 字符串的值。
+	// replacer（可选）：一个函数或数组，用于选择或替换值。
+	// space（可选）：用于格式化输出的字符串或数字。如果是数字，表示每个级别缩进的空格数；如果是字符串（如 '\t'），则用该字符串作为缩进。
 	return isDeleted;
 }

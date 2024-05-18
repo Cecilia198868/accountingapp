@@ -13,18 +13,17 @@ export function updateOrders(orderId, newOrderData) {
 		fs.mkdirSync(datastorePath);
 		// 使用`fs.mkdirSync`方法同步创建一个新的目录，目录路径由`datastorePath`指定。
 	}
-	console.log("--debug--", 1);
+
 	if (!fs.existsSync(filePath)) {
 		throw new Error("The file didn't find.");
 	}
-	console.log("--debug--", 2);
+
 	const data = fs.readFileSync(filePath, "utf-8");
 	// 	// 使用`fs.readFileSync`方法同步读取`filePath`指定路径的文件，读取的数据存储在常量`buff`中。
 
 	const orders = JSON.parse(data);
 
 	const orderIndex = orders.findIndex((order) => order.id === orderId);
-	console.log("--debug--", 333, orderIndex);
 
 	if (orderIndex === 0) {
 		throw new Error("No orderIndex");
