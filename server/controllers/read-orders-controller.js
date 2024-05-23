@@ -2,7 +2,7 @@ import { readOrders } from "../services/read-orders.js";
 
 export async function readOrdersController(req, res) {
 	let limit = Number.parseInt(req.query.limit, 10);
-	let offset = Number.parseInt(req.query.offset, 5);
+	let offset = Number.parseInt(req.query.offset, 10);
 
 	limit = Number.isNaN(limit) ? 10 : limit;
 	offset = Number.isNaN(offset) ? 5 : offset;
